@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StackBase - Modern Web Solutions for Development, Forms & Invoicing</title>
+    
+    <!-- Google Font: Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- 
+      This <style> block contains all the CSS for the website.
+      It replaces the Tailwind classes from the previous version.
+    -->
+    <style>
+        /* --- 1. Global & Reset Styles --- */
+        
+        /* Smooth scrolling for anchor links (e.g., #features) */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* * Basic page setup
+         * - Use the 'Roboto' font family
+         * - Set base colors and background
+         */
+        body {
+            font-family: 'Roboto', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: #f9fafb; /* brand-light */
+            color: #1f2937; /* text-gray-800 */
+            margin: 0;
+            padding: 0;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        
+        /* Reusable container class to center content and add padding */
+        .container {
+            width: 90%;
+            max-width: 1280px; /* Corresponds to Tailwind's lg/xl breakpoints */
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1rem; /* 16px */
+            padding-right: 1rem; /* 16px */
+        }
+        
+        /* Basic styling for links and buttons */
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.2s ease-in-out;
+        }
+        
+        button {
+            cursor: pointer;
+            font-family: inherit;
+            border: none;
+            background: none;
+        }
+        
+        /* --- 2. Header & Navigation --- */
+        
+        header {
+            background-color: #111827; /* brand-dark */
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        header nav {
+            /* Use flexbox to align logo, links, and buttons */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 4rem; /* 64px */
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0; /* Prevents shrinking on small screens */
+        }
+
+        .logo-container img {
+            height: 2rem; /* 32px */
+            width: 2rem; /* 32px */
+        }
+        
+        .logo-container span {
+            color: white;
+            font-size: 1.5rem; /* 24px */
+            font-weight: 700; /* bold */
+            margin-left: 0.75rem; /* 12px */
+        }
+        
+        /* Desktop Navigation Links */
+        .nav-desktop {
+            display: none; /* Hidden on mobile by default */
+        }
+        
+        .nav-desktop a {
+            color: #d1d5db; /* text-gray-300 */
+            font-size: 0.875rem; /* 14px */
+            font-weight: 500; /* medium */
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.375rem; /* 6px */
+            margin-left: 0.5rem; /* Add some space between links */
+            transition: color 0.2s;
+        }
+        
+        .nav-desktop a:hover {
+            color: white;
+        }
+        
+        /* Desktop Sign In / Get Started Buttons */
+        .nav-desktop-cta {
+            display: none; /* Hidden on mobile by default */
+            align-items: center;
+        }
+
+        .nav-cta-signin {
+            color: #d1d5db;
+            font-size: 0.875rem;
+            font-weight: 500;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.375rem;
+            transition: color 0.2s;
+        }
+
+        .nav-cta-signin:hover {
+            color: white;
+        }
+        
+        .nav-cta-signup {
+            /* --- Updated for gradient --- */
+            background-image: linear-gradient(to right, #3b82f6, #14b8a6); /* Blue to Teal */
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem; /* 8px */
+            margin-left: 1rem;
+            transition: all 0.2s; /* Changed to 'all' for gradient/shadow */
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+        
+        .nav-cta-signup:hover {
+            /* --- Updated for gradient hover --- */
+            background-image: linear-gradient(to right, #2563eb, #0d9488); /* Darker gradient */
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1); /* Add shadow on hover */
+        }
+        
+        /* Mobile Menu (Hamburger Button) */
+        .mobile-menu-button {
+            display: block; /* Visible on mobile */
+            color: #d1d5db;
+            padding: 0.5rem;
+        }
+        
+        .mobile-menu-button svg {
+            height: 1.5rem; /* 24px */
+            width: 1.5rem; /* 24px */
+        }
+        
+        /* Mobile Menu Panel (links) */
+        .mobile-menu {
+            display: none; /* Hidden by default */
+            padding-bottom: 1rem;
+        }
+        
+        /* This class will be toggled by JavaScript */
+        .mobile-menu.open {
+            display: block;
+        }
+        
+        .mobile-menu a {
+            display: block; /* Make links full-width */
+            color: #d1d5db;
+            padding: 0.75rem 0.5rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+        }
+        
+        .mobile-menu a:hover {
+            color: white;
+        }
+        
+        .mobile-menu .nav-cta-signup {
+            width: 100%;
+            text-align: left;
+            margin-top: 0.5rem;
+        }
+        
+        /* --- 3. Hero Section --- */
+        
+        .hero-section {
+            color: white;
+            padding-top: 6rem; /* 96px */
+            padding-bottom: 8rem; /* 128px */
+            text-align: center;
+            
+            /* --- User Request: Added background image --- */
+            background-image: linear-gradient(rgba(17, 24, 39, 0.95), rgba(31, 41, 55, 0.95)), 
+                              url('https://placehold.co/1920x1080/1f2937/3b82f6?text=StackBase+Cloud');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .hero-section h1 {
+            font-size: 2.5rem; /* 40px */
+            font-weight: 900; /* black */
+            letter-spacing: -0.025em; /* tracking-tight */
+            margin: 0 auto 1.5rem auto;
+        }
+        
+        .hero-section p {
+            font-size: 1.25rem; /* 20px */
+            color: #d1d5db; /* text-gray-300 */
+            max-width: 48rem; /* 768px */
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 2.5rem; /* 40px */
+        }
+        
+        .hero-cta-container {
+            display: flex;
+            flex-direction: column; /* Stack buttons on mobile */
+            justify-content: center;
+            gap: 1rem; /* 16px */
+        }
+        
+        .hero-cta-container a {
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem;
+            font-size: 1.125rem; /* 18px */
+            font-weight: 500;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hero-cta-primary {
+            /* --- Updated for gradient --- */
+            background-image: linear-gradient(to right, #3b82f6, #14b8a6); /* Blue to Teal */
+            color: white;
+        }
+        
+        .hero-cta-primary:hover {
+            /* --- Updated for gradient hover --- */
+            background-image: linear-gradient(to right, #2563eb, #0d9488); /* Darker gradient */
+            transform: scale(1.05); /* Add a subtle hover effect */
+        }
+        
+        .hero-cta-secondary {
+            background-color: #4b5563; /* text-gray-700 */
+            color: #d1d5db;
+        }
+        
+        .hero-cta-secondary:hover {
+            background-color: #374151; /* text-gray-600 */
+        }
+        
+        /* --- 4. Features Section --- */
+        
+        .features-section {
+            padding-top: 6rem;
+            padding-bottom: 6rem;
+            background-color: white;
+        }
+        
+        .features-header {
+            text-align: center;
+            margin-bottom: 4rem; /* 64px */
+        }
+        
+        .features-header .tagline {
+            /* --- Updated to teal --- */
+            color: #14b8a6; /* Teal */
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+        }
+        
+        .features-header h2 {
+            font-size: 2.25rem; /* 36px */
+            font-weight: 700;
+            color: #111827;
+            margin-top: 0.5rem;
+        }
+        
+        .features-header p {
+            font-size: 1.125rem;
+            color: #4b5563;
+            margin-top: 1rem;
+            max-width: 42rem; /* 672px */
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* Single column on mobile */
+            gap: 2rem; /* 32px */
+        }
+        
+        .feature-card {
+            background-color: #f9fafb;
+            padding: 2rem;
+            border-radius: 0.75rem; /* 12px */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: box-shadow 0.3s ease-in-out;
+        }
+        
+        .feature-card:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .feature-icon-container {
+            /* --- Updated to light teal --- */
+            background-color: #ccfbf1; /* teal-100 */
+            color: #0d9488; /* teal-600 */
+            border-radius: 9999px; /* full */
+            height: 3rem; /* 48px */
+            width: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-icon-container svg {
+            height: 1.5rem;
+            width: 1.5rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #111827;
+            margin-top: 0;
+            margin-bottom: 0.75rem;
+        }
+        
+        .feature-card p {
+            color: #4b5563;
+            margin: 0;
+        }
+
+        /* --- 5. Developer-First Section --- */
+        
+        .dev-first-section {
+            padding-top: 6rem;
+            padding-bottom: 6rem;
+            background-color: #f9fafb; /* brand-light */
+        }
+        
+        .dev-first-container {
+            display: flex;
+            flex-direction: column; /* Stack on mobile */
+            align-items: center;
+            gap: 3rem; /* 48px */
+        }
+        
+        .dev-first-text {
+            width: 100%;
+        }
+        
+        .dev-first-text .tagline {
+            /* --- Updated to teal --- */
+            color: #14b8a6; /* Teal */
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+        }
+        
+        .dev-first-text h2 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #111827;
+            margin-top: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .dev-first-text p {
+            font-size: 1.125rem;
+            color: #4b5563;
+            margin-bottom: 1.5rem;
+        }
+        
+        .dev-first-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+        
+        .dev-first-list li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        
+        .dev-first-list li:last-child {
+            margin-bottom: 0;
+        }
+        
+        .dev-first-list .icon-check {
+            flex-shrink: 0;
+            background-color: #d1fae5; /* green-100 */
+            color: #065f46; /* green-600 */
+            border-radius: 9999px;
+            height: 1.5rem;
+            width: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            margin-top: 0.25rem;
+        }
+        
+        .dev-first-list .icon-check svg {
+            height: 1rem;
+            width: 1rem;
+        }
+        
+        .dev-first-list li span strong {
+            color: #111827;
+        }
+        
+        .dev-first-graphic {
+            width: 100%;
+        }
+        
+        .code-block {
+            background-color: #111827;
+            border-radius: 0.75rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            padding: 1.5rem;
+        }
+        
+        .code-window-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .code-window-controls div {
+            height: 0.75rem;
+            width: 0.75rem;
+            border-radius: 9999px;
+        }
+        
+        .code-window-controls .red { background-color: #ef4444; }
+        .code-window-controls .yellow { background-color: #f59e0b; }
+        .code-window-controls .green { background-color: #10b981; }
+        
+        .code-block pre {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.875rem;
+            color: #d1d5db;
+            overflow-x: auto; /* Allow horizontal scrolling for code */
+            margin: 0;
+        }
+        
+        /* Syntax highlighting styles */
+        .code-block .text-purple { color: #c084fc; }
+        .code-block .text-yellow { color: #fde047; }
+        .code-block .text-gray { color: #6b7280; }
+        .code-block .text-blue { color: #60a5fa; }
+        .code-block .text-green { color: #4ade80; }
+
+        /* --- 6. Final CTA Section --- */
+        
+        .cta-section {
+            /* --- Updated for gradient --- */
+            background-image: linear-gradient(to right, #3b82f6, #14b8a6); /* Blue to Teal */
+            color: white;
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-section p {
+            font-size: 1.25rem;
+            color: #dbeafe; /* blue-100 */
+            max-width: 42rem;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 2rem;
+        }
+        
+        .cta-section a {
+            background-color: white;
+            /* --- Updated to teal --- */
+            color: #0d9488; /* Darker teal for contrast */
+            padding: 0.75rem 2.5rem;
+            border-radius: 0.5rem;
+            font-size: 1.125rem;
+            font-weight: 700;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            display: inline-block; /* Ensure padding is applied */
+        }
+        
+        .cta-section a:hover {
+            background-color: #f3f4f6; /* gray-100 */
+            transform: scale(1.05);
+        }
+
+        /* --- 7. Footer --- */
+        
+        footer {
+            background-color: #111827;
+            color: #9ca3af; /* text-gray-400 */
+            padding-top: 4rem;
+            padding-bottom: 4rem;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* 2 columns on mobile */
+            gap: 2rem;
+        }
+        
+        .footer-brand {
+            grid-column: span 2 / span 2; /* Full width on mobile */
+            margin-bottom: 1rem;
+        }
+        
+        .footer-brand .logo-container {
+            margin-bottom: 1rem;
+        }
+        
+        .footer-brand p {
+            font-size: 0.875rem;
+            margin: 0;
+        }
+
+        .footer-brand .copyright {
+             margin-top: 1rem;
+        }
+        
+        .footer-links-group h4 {
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            margin-top: 0;
+        }
+        
+        .footer-links-group ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+        
+        .footer-links-group li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-links-group a {
+            font-size: 0.875rem;
+        }
+        
+        .footer-links-group a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #374151; /* gray-700 */
+            display: flex;
+            flex-direction: column; /* Stack on mobile */
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .footer-bottom p {
+            font-size: 0.875rem;
+            margin: 0;
+        }
+        
+        .footer-socials {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center; /* <-- This line fixes the alignment */
+        }
+        
+        .footer-socials a {
+            color: #9ca3af;
+            display: flex; /* <-- Add this */
+            align-items: center; /* <-- Add this */
+        }
+        
+        .footer-socials a:hover {
+            color: white;
+        }
+        
+        .footer-socials svg {
+            height: 1.5rem;
+            width: 1.5rem;
+        }
+
+        /* --- Dark Mode Toggle Button --- */
+        #darkModeToggle {
+            background: none;
+            border: none;
+            color: #9ca3af;
+            cursor: pointer;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.2s ease-in-out;
+        }
+
+        #darkModeToggle:hover {
+            color: white;
+        }
+
+        #darkModeToggle svg {
+            height: 1.5rem;
+            width: 1.5rem;
+        }
+
+        /* Show moon by default, hide sun */
+        #darkModeToggle .icon-sun {
+            display: none;
+        }
+        #darkModeToggle .icon-moon {
+            display: block;
+        }
+
+        /* In dark mode, hide moon, show sun */
+        body.dark-mode #darkModeToggle .icon-sun {
+            display: block;
+        }
+        body.dark-mode #darkModeToggle .icon-moon {
+            display: none;
+        }
+
+
+        /* --- 9. Dark Mode Styles --- */
+        
+        body.dark-mode {
+            background-color: #111827; /* brand-dark */
+            color: #d1d5db; /* text-gray-300 */
+        }
+
+        /* Header is already dark, no change needed */
+        
+        /* Features Section */
+        body.dark-mode .features-section {
+            background-color: #1f2937; /* Lighter dark */
+        }
+        
+        body.dark-mode .features-header h2 {
+            color: white;
+        }
+        
+        body.dark-mode .features-header p {
+            color: #d1d5db;
+        }
+        
+        body.dark-mode .feature-card {
+            background-color: #111827; /* brand-dark */
+            box-shadow: none; /* Remove shadow */
+            border: 1px solid #374151; /* Add a subtle border */
+        }
+        
+        body.dark-mode .feature-card h3 {
+            color: white;
+        }
+        
+        body.dark-mode .feature-card p {
+            color: #d1d5db;
+        }
+
+        /* Feature icon container (teal) has good contrast, no change needed */
+
+        /* Developer-First Section */
+        body.dark-mode .dev-first-section {
+            background-color: #1f2937; /* Lighter dark */
+        }
+        
+        body.dark-mode .dev-first-text h2 {
+            color: white;
+        }
+        
+        body.dark-mode .dev-first-text p {
+            color: #d1d5db;
+        }
+        
+        body.dark-mode .dev-first-list li span {
+            color: #d1d5db;
+        }
+        
+        body.dark-mode .dev-first-list li span strong {
+            color: white;
+        }
+        
+        /* Code block is already dark, no change needed */
+        
+        /* CTA section is gradient, no change needed */
+        
+        /* Footer is already dark, no change needed */
+        
+
+        /* --- 8. Responsive Media Queries --- */
+        
+        /* Small screens and up (e.g., large phones) */
+        @media (min-width: 640px) {
+            .hero-section h1 {
+                font-size: 3rem; /* 48px */
+            }
+            .hero-section p {
+                font-size: 1.5rem; /* 24px */
+            }
+            .hero-cta-container {
+                flex-direction: row; /* Buttons side-by-side */
+            }
+            .features-header h2,
+            .dev-first-text h2,
+            .cta-section h2 {
+                font-size: 2.5rem; /* 40px */
+            }
+            .footer-bottom {
+                flex-direction: row; /* Side-by-side */
+            }
+        }
+        
+        /* Medium screens and up (e.g., tablets) */
+        @media (min-width: 768px) {
+            /* Show desktop nav, hide mobile button */
+            .nav-desktop,
+            .nav-desktop-cta {
+                display: flex;
+            }
+            .mobile-menu-button {
+                display: none;
+            }
+            .mobile-menu {
+                display: none !important; /* Ensure it stays hidden */
+            }
+            
+            /* Use 3-column grid for features */
+            .features-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            /* Adjust footer grid */
+            .footer-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .footer-brand {
+                grid-column: span 2 / span 2;
+            }
+            .footer-links-group {
+                grid-column: span 1 / span 1;
+            }
+        }
+        
+        /* Large screens and up (e.g., desktops) */
+        @media (min-width: 1024px) {
+            .hero-section h1 {
+                font-size: 3.75rem; /* 60px */
+            }
+            
+            /* Side-by-side layout for dev-first section */
+            .dev-first-container {
+                flex-direction: row;
+                gap: 4rem;
+            }
+            .dev-first-text,
+            .dev-first-graphic {
+                width: 50%;
+            }
+            
+            /* 5-column footer layout */
+            .footer-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navigation -->
+    <header>
+        <!-- The container class centers the content -->
+        <nav class="container">
+            <!-- Logo and Brand Name -->
+            <div class="logo-container">
+                <img 
+                    src="https://stack-base.github.io/media/brand/stackbase/stackbase-icon.png" 
+                    alt="StackBase Logo"
+                    onerror="this.onerror=null;this.src='https://placehold.co/32x32/14b8a6/white?text=SB&font=roboto';"
+                >
+                <span>StackBase</span>
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <div class="nav-desktop">
+                <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#docs">Docs</a>
+                <a href="#contact">Contact</a>
+            </div>
+            
+            <!-- Desktop CTA -->
+            <div class="nav-desktop-cta">
+                <a href="#login" class="nav-cta-signin">Sign In</a>
+                <a href="#signup" class="nav-cta-signup">Get Started</a>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="mobile-menu-button" aria-label="Toggle menu">
+                <svg stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </nav>
+        
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="mobile-menu container">
+            <a href="#features">Features</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#docs">Docs</a>
+            <a href="#contact">Contact</a>
+            <a href="#login" class="nav-cta-signin">Sign In</a>
+            <a href="#signup" class="nav-cta-signup">Get Started</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <h1>Build & Scale Your Web Vision</h1>
+                <p>
+                    StackBase provides the developer-first platform for modern website development, secure forms, and seamless web-based invoicing.
+                </p>
+                <div class="hero-cta-container">
+                    <a href="#signup" class="hero-cta-primary">
+                        Start Building for Free
+                    </a>
+                    <a href="#docs" class="hero-cta-secondary">
+                        Read the Docs
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Features Section -->
+        <section id="features" class="features-section">
+            <div class="container">
+                <div class="features-header">
+                    <span class="tagline">Why StackBase</span>
+                    <h2>An All-in-One Platform</h2>
+                    <p>
+                        We handle the infrastructure, so you can focus on building what matters.
+                    </p>
+                </div>
+                
+                <div class="features-grid">
+                    <!-- Feature 1: Website Development -->
+                    <div class="feature-card">
+                        <div class="feature-icon-container">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                            </svg>
+                        </div>
+                        <h3>Website Development</h3>
+                        <p>
+                            Deploy static sites or full-stack applications with ease. Our global CDN, automatic SSL, and custom domains are ready for you.
+                        </p>
+                    </div>
+                    
+                    <!-- Feature 2: Secure Forms -->
+                    <div class="feature-card">
+                        <div class="feature-icon-container">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                        </div>
+                        <h3>Dynamic Web Forms</h3>
+                        <p>
+                            Create secure, backend-less forms in minutes. Capture submissions, prevent spam, and trigger webhooks without writing a line of code.
+                        </p>
+                    </div>
+                    
+                    <!-- Feature 3: Web-Based Invoicing -->
+                    <div class="feature-card">
+                        <div class="feature-icon-container">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                            </svg>
+                        </div>
+                        <h3>Web-Based Invoicing</h3>
+                        <p>
+                            Generate, send, and track professional invoices directly from our dashboard. Integrate payments and automate your client billing.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Developer-First Section -->
+        <section class="dev-first-section">
+            <div class="container dev-first-container">
+                <!-- Text Content -->
+                <div class="dev-first-text">
+                    <span class="tagline">Developer First</span>
+                    <h2>Like Firebase, But for Everything Else</h2>
+                    <p>
+                        StackBase is built on the idea that developers should be able to build, not just configure. Our APIs are intuitive, our documentation is thorough, and our platform is transparent.
+                    </p>
+                    <ul class="dev-first-list">
+                        <li>
+                            <div class="icon-check">
+                                <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                            </div>
+                            <span><strong>REST & JS APIs:</strong> Integrate StackBase services into any application, on any platform.</span>
+                        </li>
+                        <li>
+                            <div class="icon-check">
+                                <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                            </div>
+                            <span><strong>Scales with You:</strong> From a hobby project to an enterprise application, our infrastructure grows with your traffic.</span>
+                        </li>
+                        <li>
+                            <div class="icon-check">
+                                <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                            </div>
+                            <span><strong>Generous Free Tier:</strong> Experiment, build, and launch your project completely for free. No credit card required.</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Code/Graphic -->
+                <div class="dev-first-graphic">
+                    <div class="code-block">
+                        <div class="code-window-controls">
+                            <div class="red"></div>
+                            <div class="yellow"></div>
+                            <div class="green"></div>
+                        </div>
+                        <pre><code><span class="text-purple">import</span> { stackbase } <span class="text-purple">from</span> <span class="text-yellow">'@stackbase/sdk'</span>;
+
+<span class="text-gray">// Initialize the SDK</span>
+<span class="text-blue">const</span> sb = <span class="text-green">stackbase</span>.init(<span class="text-yellow">'YOUR_API_KEY'</span>);
+
+<span class="text-gray">// Deploy a new website</span>
+<span class="text-blue">await</span> sb.<span class="text-green">websites</span>.deploy(<span class="text-yellow">'./build'</span>);
+
+<span class="text-gray">// Send an invoice</span>
+<span class="text-blue">await</span> sb.<span class="text-green">invoicing</span>.send({
+  to: <span class="text-yellow">'client@email.com'</span>,
+  amount: <span class="text-green">199.99</span>
+});</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Call to Action (CTA) -->
+        <section class="cta-section">
+            <div class="container">
+                <h2>Ready to Build Your Next Idea?</h2>
+                <p>
+                    Join thousands of developers building faster on StackBase. Sign up and start building with our free tier today.
+                </p>
+                <a href="#signup">Start Your Free Project</a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Brand Info -->
+                <div class="footer-brand">
+                    <div class="logo-container">
+                        <img 
+                            src="https://stack-base.github.io/media/brand/stackbase/stackbase-icon.png" 
+                            alt="StackBase Logo"
+                            onerror="this.onerror=null;this.src='https://placehold.co/32x32/14b8a6/white?text=SB&font=roboto';"
+                        >
+                        <span>StackBase</span>
+                    </div>
+                    <p>
+                        The modern platform for web development, forms, and invoicing.
+                    </p>
+                    <p class="copyright">&copy; 2025 StackBase, Inc. All rights reserved.</p>
+                </div>
+                
+                <!-- Product Links -->
+                <div class="footer-links-group">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#features">Website Development</a></li>
+                        <li><a href="#features">Web Forms</a></li>
+                        <li><a href="#features">Invoicing</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#changelog">Changelog</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Resources -->
+                <div class="footer-links-group">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#docs">Documentation</a></li>
+                        <li><a href="#guides">Guides</a></li>
+                        <li><a href="#api">API Reference</a></li>
+                        <li><a href="#support">Support</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Company -->
+                <div class="footer-links-group">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#careers">Careers</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Empty column for 5-col layout spacing on desktop -->
+                <div class="footer-links-group"></div>
+            </div>
+            
+            <!-- Social Media Icons -->
+            <div class="footer-bottom">
+                <p>A new way to build the web.</p>
+                <div class="footer-socials">
+                    <!-- Dark Mode Toggle Button -->
+                    <button id="darkModeToggle" aria-label="Toggle dark mode">
+                        <!-- Moon Icon (for switching to dark) -->
+                        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                        <!-- Sun Icon (for switching to light) -->
+                        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                    </button>
+
+                    <a href="#" aria-label="Twitter">
+                        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.93.55-1.95.94-3.027 1.15a4.93 4.93 0 00-8.38 4.482A13.97 13.97 0 011.67 3.149a4.93 4.93 0 001.524 6.57c-.8-.02-1.55-.24-2.2-.6a4.93 4.93 0 003.9 4.828 4.93 4.93 0 01-2.22.08A4.93 4.93 0 007.4 15.6a9.9 9.9 0 01-6.11 2.1 9.78 9.78 0 01-1.17-.07A13.95 13.95 0 008.28 21c10.07 0 15.58-8.35 15.58-15.58 0-.24-.005-.47-.015-.7A11.1 11.1 0 0024 4.59z"/></svg>
+    
+                    </a>
+                    <a href="#" aria-label="GitHub">
+                        <svg fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.165 6.839 9.488.5.092.682-.217.682-.483 0-.237-.009-.868-.013-1.703-2.782.602-3.369-1.34-3.369-1.34-.454-1.157-1.11-1.468-1.11-1.468-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.527 2.338 1.085 2.91.83.092-.645.35-1.085.635-1.334-2.22-.25-4.555-1.11-4.555-4.943 0-1.09.39-1.988 1.03-2.685-.103-.254-.447-1.27.096-2.647 0 0 .84-.27 2.75 1.026.798-.22 1.648-.33 2.498-.33.85 0 1.7.11 2.498.33 1.91-1.296 2.748-1.026 2.748-1.026.545 1.377.2 2.393.1 2.647.64.697 1.03 1.595 1.03 2.685 0 3.843-2.337 4.687-4.565 4.935.359.305.678.915.678 1.846 0 1.334-.012 2.41-.012 2.737 0 .267.18.577.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd"/></svg>
+    
+                    </a>
+                    <a href="#" aria-label="LinkedIn">
+                        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+    
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Mobile Menu Toggle Script -->
+    <script>
+        // Wait for the document to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // --- Mobile Menu Logic ---
+            var menuButton = document.getElementById('mobile-menu-button');
+            var mobileMenu = document.getElementById('mobile-menu');
+            var icon = menuButton.querySelector('svg');
+
+            // Add a click event listener to the button
+            menuButton.addEventListener('click', function() {
+                
+                // Check if the menu is currently open
+                if (mobileMenu.classList.contains('open')) {
+                    // If open, remove the 'open' class to hide it
+                    mobileMenu.classList.remove('open');
+                    
+                    // Change back to 'hamburger' icon
+                    icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />';
+                } else {
+                    // If closed, add the 'open' class to show it
+                    mobileMenu.classList.add('open');
+                    
+                    // Change to 'X' icon
+                    icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />';
+                }
+            });
+
+            // --- Dark Mode Logic ---
+            var toggleButton = document.getElementById('darkModeToggle');
+            var body = document.body;
+
+            // Function to apply the saved theme
+            function applyTheme() {
+                var isDarkMode = localStorage.getItem('darkMode') === 'true';
+                if (isDarkMode) {
+                    body.classList.add('dark-mode');
+                } else {
+                    body.classList.remove('dark-mode');
+                }
+            }
+
+            // Apply theme on initial load
+            applyTheme();
+
+            // Add click event listener for the toggle button
+            toggleButton.addEventListener('click', function() {
+                // Toggle the .dark-mode class on the body
+                body.classList.toggle('dark-mode');
+                
+                // Save the user's preference to localStorage
+                var isDarkMode = body.classList.contains('dark-mode');
+                localStorage.setItem('darkMode', isDarkMode);
+            });
+        });
+    </script>
+
+</body>
+</html>
